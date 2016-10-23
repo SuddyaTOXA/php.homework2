@@ -1,47 +1,16 @@
+<h2>Before</h2>
+<img src="public/brba.jpg" style="max-width: 800px;">
 <?php
-/**
- * Created by PhpStorm.
- * User: Anton
- * Date: 10/23/2016
- * Time: 11:06 PM
- */
-namespace vendor\intervention\image\src\Intervention\Image\Filters;
+require 'vendor/autoload.php';
 
-class DemoFilter implements FilterInterface
-{
-    /**
-     * Default size of filter effects
-     */
-    const DEFAULT_SIZE = 10;
+use Gregwar\Image\Image;
 
-    /**
-     * Size of filter effects
-     *
-     * @var integer
-     */
-    private $size;
+Image::open('public/brba.jpg')
+    ->resize(500, 280)
+    ->rotate(45, $background = 0xffffff)
+    ->grayscale()
+    ->save('out.jpg');
 
-    /**
-     * Creates new instance of filter
-     *
-     * @param integer $size
-     */
-    public function __construct($size = null)
-    {
-        $this->size = is_numeric($size) ? intval($size) : self::DEFAULT_SIZE;
-    }
-
-    /**
-     * Applies filter effects to given image
-     *
-     * @param  vendor\intervention\image\src\Intervention\Image\Image $image
-     * @return vendor\intervention\image\src\Intervention\Image\Image
-     */
-    public function applyFilter(vendor\intervention\image\src\Intervention\Image\Image $image)
-    {
-        $image->pixelate($this->size);
-        $image->greyscale();
-
-        return $image;
-    }
-}
+?>
+<h2>After</h2>
+<img src="out.jpg">
